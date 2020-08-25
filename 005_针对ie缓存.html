@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style='border: blueviolet 2px solid;width: 600px;height: 200px;'></div>
+    <script>
+        const div = document.getElementsByTagName('div')[0];
+
+        // 获取键盘按下事件
+        window.onkeydown = function(){
+
+            // 发送请求
+            const xhr = new XMLHttpRequest();
+
+            
+            // 设置方式和uel
+            xhr.open('get','http://127.0.0.1:8000/ie?t='+Date.now());
+
+
+            // 发送
+            xhr.send();
+
+            // 绑定事件
+            xhr.onreadystatechange = function(){
+
+                // 判断
+                if(xhr.readyState === 4 ){
+                    if(xhr.status >= 200 && xhr.status <=300 ){
+                        div.innerHTML = xhr.response;
+                        console.log(xhr.response);
+                    }
+                }
+            }
+
+        };
+    </script>
+</body>
+</html>
+

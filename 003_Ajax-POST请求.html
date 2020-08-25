@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1">don't click me</div>
+
+
+    <script>
+
+        // 获取元素对象
+        const box1 = document.getElementById('box1');
+
+        // 绑定事件
+        box1.addEventListener('click',function(){
+
+    
+            // 1.创建对象
+            const xhr = new XMLHttpRequest();
+            // 2.设置类型与url
+            xhr.open('POST', 'http://127.0.0.1:8000');
+            // 设置请求头
+            xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+            xhr.setRequestHeader('name','sqs');
+
+            // name是自定义的请求头，浏览器的安全机制不让加，会报错
+            // 要解决此问题可以在server.js中添加
+
+
+            // 3.发送
+            xhr.send('a=1&b=2&c=3');
+            // 4.事件绑定
+            xhr.onreadystatechange = function(){
+                // 判断
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status <= 300){
+                        // 处理服务器返回的结果
+                        box1.innerHTML = xhr.response;
+                    }
+                }
+            }
+
+
+        });
+
+    </script>
+</body>
+</html>

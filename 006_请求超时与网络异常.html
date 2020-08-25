@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 500px;
+            height: 300px;
+            border: 2px black solid;
+        }
+    </style>
+</head>
+<body>
+    <button>发起请求</button>
+    <button>取消请求</button>
+    <div></div>
+
+    <script>
+        // 获取按钮和div
+        const button = document.getElementsByTagName('button');
+        const div = document.getElementsByTagName('div')[0];
+        let xhr = null;
+
+        // 给button1绑定事件
+        button[0].addEventListener('click',() => {
+
+            // 1.发送请求
+            xhr = new XMLHttpRequest();
+
+            // 设置超时2s
+            xhr.timeout = 2000;
+
+            // 超时回调
+            xhr.ontimeout = function(){
+                alert("请求超时，请稍后重试！！！");
+            }
+
+            // 网络异常回调
+            xhr.onerror = function(){
+                alert("你的网络似乎出了一些问题！");
+            }
+
+
+            // 2.设置请求方式和url
+            xhr.open('get','http://127.0.0.1:8000/delay');
+
+            // 3.发送
+            xhr.send();
+
+            // 4.绑定事件
+            xhr.onreadystatechange = function(){
+
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status <=300 ){
+                        div.innerHTML = xhr.response;
+                     }
+
+                }
+            }
+            
+        });
+
+        // 取消请求
+        button[1].onclick = function(){
+
+            xhr.abort();
+
+        }
+
+    </script>
+</body>
+</html>

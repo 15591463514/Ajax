@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>请输入要打开的链接地址：</h3>
+    <input type="text" value="" id="link">
+    <input type="button" onclick="openLink()">
+    <h3>在这里出现链接的内容：</h3>
+    <iframe id="iframe" src=""
+     frameborder="1px" height="500px" width="100%">
+
+    </iframe>
+
+
+    <script type="text/javascript">
+        function openLink(){
+            document.getElementById('iframe').src = document.getElementById('link').value;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>发送请求</button>
+
+    <script>
+
+        // 标识变量
+        let isSending = false;
+
+        // 获取按钮
+        const btn = document.getElementsByTagName('button');
+        btn[0].onclick  =  function(){
+
+
+            // 判断是否正在发送    如果正在发送则取消该请求
+            if(isSending) xhr.abort();
+
+            // 正在发送
+            isSending = true;
+
+            // 发送请求
+            let  xhr  =  new XMLHttpRequest();
+
+            // 设置方式和url
+            xhr.open('get','http://127.0.0.1:8000/delay');
+
+            // 发送
+            xhr.send();
+
+            // 绑定事件
+            xhr.onreadystatechange  =  function(){
+                if(xhr.readyState === 4){
+                    // 修改标示变量
+                    isSending = false;         
+                }
+                
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style='border: blueviolet 2px solid;width: 600px;height: 200px;'></div>
+    <script>
+        const div = document.getElementsByTagName('div')[0];
+
+        // 获取键盘按下事件
+        window.onkeydown = function(){
+
+            // 发送请求
+            const xhr = new XMLHttpRequest();
+            // 自动转换
+            xhr.responseType = "json";
+            
+            // 设置方式和uel
+            xhr.open('post','http://127.0.0.1:8000/json-server');
+
+
+            // 发送
+            xhr.send();
+
+            // 绑定事件
+            xhr.onreadystatechange = function(){
+
+                // 判断
+                if(xhr.readyState === 4 ){
+                    if(xhr.status >= 200 && xhr.status <=300 ){
+
+
+
+                        // 手动对json的数据
+                        // let data = JSON.parse(xhr.response);
+                        // console.log(data);
+                        // div.innerHTML = data;
+
+                        div.innerHTML = xhr.response;
+                        console.log(xhr.response);
+
+                        // 自动转换数据
+
+                    }
+                }
+            }
+
+        };
+    </script>
+</body>
+</html>
+
